@@ -1,3 +1,4 @@
+// Player Factory
 const Player = (player1, player2) => {
   let playerO = document.querySelector(".player-o .name");
   let firstName = document.querySelector(".firstName");
@@ -18,8 +19,8 @@ const Game = () => {
   let boxes = document.querySelectorAll(".box");
   let board = Array(9).fill(null);
   let currentPlayer = "X";
-  const single = document.querySelector(".singlePlayer");
 
+  //controls turns for the players
   const playTurn = () => {
     boxes.forEach((box, index) => {
       let xo = box.querySelector(".xo");
@@ -28,6 +29,7 @@ const Game = () => {
           xo.textContent = currentPlayer;
           board[index] = currentPlayer;
 
+          // Switch the current player
           currentPlayer = currentPlayer === "X" ? "O" : "X";
 
           if (
@@ -151,43 +153,8 @@ const Game = () => {
     });
   };
 
-  const singlePlayer = () => {
-    let main = document.querySelector(".main");
-    let intro = document.querySelector(".intro");
-    let cover = document.querySelector(".cover");
-    single.addEventListener("click", function () {
-      main.style.display = "flex";
-      intro.style.display = "none";
-      cover.style.display = "none";
-      if (currentPlayer === "X") {
-        let availableBoxes = Array.from(boxes).filter(
-          (box) => box.querySelector(".xo").textContent === ""
-        );
-        let computerMove =
-          availableBoxes[Math.floor(Math.random() * availableBoxes.length)];
-        playComputerMove(computerMove);
-      }
-    });
-  };
-
-  const playComputerMove = (computerMove) => {
-    let xo = computerMove.querySelector(".xo");
-    xo.textContent = currentPlayer;
-    board[computerMove.dataset.index] = currentPlayer;
-
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-
-    checkcolumns(board[computerMove.dataset.index]);
-    checkrow(board[computerMove.dataset.index]);
-    checkdiagonal(board[computerMove.dataset.index]);
-  };
-
-  return { startGame, NewGame, playTurn, singlePlayer };
+  return { startGame, NewGame, playTurn };
 };
 
 let gameboard = Game();
 gameboard.NewGame();
-
-document.querySelector(".singlePlayer").addEventListener("click", function () {
-  gameboard.singlePlayer();
-});
