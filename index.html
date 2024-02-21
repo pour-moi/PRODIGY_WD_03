@@ -14,7 +14,7 @@
           <div class="x">x</div>
         </div>
         <div class="player-o">
-          <span class="name">Player1</span>
+          <span class="name">Computer</span>
           <div class="o">o</div>
         </div>
       </div>
@@ -77,9 +77,26 @@
     <div class="cover">
       <h1 class="head">Tic Tac Toe</h1>
       <h1 class="topic">XO</h1>
-      <button class="newGame">Multiplayer</button>
       <button class="singlePlayer">Single Player</button>
+      <button class="newGame">Multiplayer</button>
     </div>
-    <script src="main.js"></script>
+    <script>
+      const Multiplayer = document.querySelector(".newGame");
+      const Single = document.querySelector(".singlePlayer");
+
+      Multiplayer.addEventListener("click", function () {
+        loadScript("./main.js");
+      });
+
+      Single.addEventListener("click", function () {
+        loadScript("./AI.js");
+      });
+
+      function loadScript(src) {
+        let script = document.createElement("script");
+        script.src = src;
+        document.head.appendChild(script);
+      }
+    </script>
   </body>
 </html>
